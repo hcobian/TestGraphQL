@@ -19,50 +19,38 @@ namespace TestGraphQL.GraphQL
 
             Name = "AppQueries";
 
-            Field<StringGraphType>(
-                "exampleQuery1",
-                resolve: 
-                    context =>
+            Field<StringGraphType>("exampleQuery1")
+                .Resolve(context =>
                     {
                         return "exampleQuery Response";
-                    }
-            );
+                    });
 
-            Field<StringGraphType>(
-                "exampleQueryException",
-                resolve: 
-                    context =>
+            Field<StringGraphType>("exampleQueryException")
+                .Resolve(context =>
                     {
                         context.Errors.Add(new ExecutionError("This is the message Exception"));
 
                         return string.Empty;
-                    }
-            );
+                    });
 
-            Field<UserType>(
-                "getUser",
-                arguments: new QueryArguments(
-                        new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "userId" }
-                    ),
-                resolve: 
-                    context =>
+            Field<UserType>("getUser")
+                .Arguments(new QueryArguments(
+                        new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "userId" })
+                )
+                .Resolve(context =>
                     {
                         var userId = context.GetArgument<int>("userId");
                         var user = users.Where(x => x.Id == userId).FirstOrDefault();
 
                         return user;
-                    }
-            );
+                    });
 
-            Field<ListGraphType<UserType>>(
-                "GetAllUsers",
-                resolve:
-                    context =>
+            Field<ListGraphType<UserType>>("GetAllUsers")
+                .Resolve(context =>
                     {
 
                         return users;
-                    }
-            );
+                    });
         }
 
     }

@@ -8,6 +8,7 @@ namespace TestGraphQL.GraphQL
         {
             Query = serviceProvider.GetRequiredService<AppQueries>();
             Mutation = serviceProvider.GetRequiredService<AppMutations>();
+            Subscription = serviceProvider.GetRequiredService<AppSubscriptions>();
         }
     }
 }
