@@ -30,7 +30,7 @@ namespace TestGraphQL.GraphQL
                     {
                         context.Errors.Add(new ExecutionError("This is the message Exception"));
 
-                        return string.Empty;
+                        return null;
                     });
 
             Field<UserType>("getUser")
